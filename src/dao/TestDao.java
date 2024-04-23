@@ -169,51 +169,13 @@ public class TestDao extends Dao{
 		int count = 0;
 
 		try {
-			if (actionType.equals("update")){
-				statement = connection.prepareStatement(
-						"update student set name=?,ent_year=?,class_num=?,is_attend=? where no=?");
-				statement.setString(1, student.getName());
-				statement.setInt(2, student.getEntYear());
-				statement.setString(3, student.getClassNum());
-				statement.setBoolean(4, student.isAttend());
-				statement.setString(5, student.getNo());
-			} else {
-				statement = connection.prepareStatement(
-						"insert into student(no,name,ent_year,class_num,is_attend,school_cd) values(?,?,?,?,?,?)");
-				// プリペアードステートメントに値をバインド
-				statement.setString(1, student.getNo());
-				statement.setString(2, student.getName());
-				statement.setInt(3, student.getEntYear());
-				statement.setString(4, student.getClassNum());
-				statement.setBoolean(5, student.isAttend());
-				statement.setString(6, student.getSchool().getCd());
-				count = statement.executeUpdate();
-			}
-			// プリペアードステートメントを実行
-			count = statement.executeUpdate();
+			
 		}catch (Exception e){
-			e.printStackTrace();
-			statement.close();
-			connection.close();
+			
 			return false;
-		} finally {
-			// プリペアードステートメントを閉じる
-			if (statement !=null) {
-				try{
-					statement.close();
-				}catch (SQLException sqle){
-					throw sqle;
-				}
-			}
-			// コネクションを閉じる
-			if (connection != null){
-				try{
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
+		} 
+		
+
 
 		if (count > 0) {
 			//実行件数が1件以上ある場合

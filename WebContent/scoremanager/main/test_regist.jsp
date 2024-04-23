@@ -115,10 +115,6 @@
 						</table>
 					</c:if>
 					<input class="btn btn-secondary" type="submit" value="登録して終了">
-					<input type="hidden" name="f1" value="${f1}">
-					<input type="hidden" name="f2" value="${f2}">
-					<input type="hidden" name="f3" value="${f3}">
-					<input type="hidden" name="f4" value="${f4}">
 					</form>
 				</c:when>
 				<c:when test="${empty student_list }">
