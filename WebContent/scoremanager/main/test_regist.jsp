@@ -12,7 +12,7 @@
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
-			<form method="get" action="TestRegist.action">
+			<form method="get" action="TestRegistExecute.action">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-4">
 						<label class="form-lavel" for="student-f1-select">入学年度</label>
@@ -58,7 +58,7 @@
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">検索</button>
 					</div>
-					<div class="mt-2 text-warning">${error}</div>
+					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
 			</form>
 			<c:choose>
@@ -81,10 +81,10 @@
 										<td>${student.getStudent().getNo()}</td>
 										<td>${student.getStudent().getName()}</td>
 										<td>
-											<input name="point_${student.getStudent().getNo()}" type="number" 
-											value="${student.getPoint()}"
-											oninput="validateInput(this)">
-											<p class="mt-2 text-warning"></p>
+											<input name="point_${student.getStudent().getName()}" type="text" value="${student.getPoint()}">
+											<c:if test="${not empty sessionScope['error_' + studentName]}">
+												<p>${sessionScope['error_' + studentName]}</p>
+											</c:if>
 										</td>
 								</c:forEach>
 						</table>
@@ -106,11 +106,10 @@
 										<td>${student.getNo()}</td>
 										<td>${student.getName()}</td>
 										<td>
-											<label for="point"></label>
-											<input name="point_${student.getNo()}" 
-											type="number" value="0" id="point" min="0" max="100" style="width:300px;"
-											oninput="validateInput(this)">
-											<p class="mt-2 text-warning" id="point" ></p>
+											<input name="point_${student.getName()}" type="text" value="">
+											<c:if test="${not empty sessionScope['error_' + studentName]}">
+												<p class="mt-2 text-warning">${sessionScope['error_' + studentName]}</p>
+											</c:if>
 										</td>
 								</c:forEach>
 						</table>
@@ -123,17 +122,5 @@
 				</c:when>
 			</c:choose>
 		</section>
-		<script>
-		function validateInput(input) {
-		    var value = input.value.trim(); // 入力値から前後の空白を除去する
-		    var message = input.nextElementSibling; // メッセージを表示するための兄弟要素を取得する
-
-		    if ((value === "") || (!isNaN(parseInt(value)) && parseInt(value) >= 0 && parseInt(value) <= 100)) {
-		        message.textContent = ""; // 入力が空白または0～100の範囲内の場合はメッセージをクリアする
-		    } else {
-		        message.textContent = "0～100の範囲で入力してください"; // それ以外の場合はエラーメッセージを表示する
-		    }
-		}
-		</script>
 	</c:param>
 </c:import>
