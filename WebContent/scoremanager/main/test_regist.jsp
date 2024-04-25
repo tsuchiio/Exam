@@ -117,9 +117,6 @@
 					<input class="btn btn-secondary" type="submit" value="登録して終了">
 					</form>
 				</c:when>
-				<c:when test="${empty student_list }">
-					<div>学生情報が存在しませんでした。</div>
-				</c:when>
 			</c:choose>
 		</section>
 	</c:param>
