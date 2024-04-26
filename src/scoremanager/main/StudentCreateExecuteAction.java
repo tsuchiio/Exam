@@ -91,7 +91,7 @@ public class StudentCreateExecuteAction extends Action {
 				newStudent.setClassNum(classNum);
 				newStudent.setAttend(true);
 				newStudent.setSchool(teacher.getSchool());
-				error = sDao.save(student);
+				error = sDao.save(newStudent);
 			}
 		}catch (Exception e) {
 			throw e;

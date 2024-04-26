@@ -278,8 +278,7 @@ public class StudentDao extends Dao{
 			statement.setInt(3, student.getEntYear());
 			statement.setString(4, student.getClassNum());
 			statement.setBoolean(5, student.isAttend());
-			statement.setString(6, student.getSchool().getName());
-			// プリペアードステートメントを実行
+			statement.setString(6, student.getSchool().getCd());
 			count = statement.executeUpdate();
 		}catch (Exception e){
 			e.printStackTrace();
