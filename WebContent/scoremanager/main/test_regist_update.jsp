@@ -89,7 +89,7 @@
 										</td>
 								</c:forEach>
 						</table>
-						<input class="btn btn-secondary" type="submit" value="登録して終了">
+						<input class="btn btn-secondary" type="submit" value="更新して終了">
 						</c:if>
 						<c:if test="${empty student_list}">
 							<div>学生情報が存在しませんでした。</div>
