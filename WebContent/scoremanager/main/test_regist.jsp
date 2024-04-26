@@ -62,9 +62,10 @@
 				</div>
 			</form>
 			<c:choose>
-				<c:when test="${not empty student_list}">
+				<c:when test="${req != null}">
 					<form method="get" action="TestRegistExecute.action">
 					<c:if test="${req eq 'update'}">
+						<c:if test="${not empty student_list}">
 						<div>科目:${subject_name}（${f4}回）</div>
 						<table class="table table-hover">
 							<tr>
@@ -88,8 +89,14 @@
 										</td>
 								</c:forEach>
 						</table>
+						<input class="btn btn-secondary" type="submit" value="登録して終了">
+						</c:if>
+						<c:if test="${empty student_list}">
+							<div>学生情報が存在しませんでした。</div>
+						</c:if>
 					</c:if>
 					<c:if test="${req eq 'create' }">
+					<c:if test="${not empty student_list}">
 					<div>科目:${subject_name}（${f4}回）</div>
 						<table class="table table-hover">
 						<tr>
@@ -114,12 +121,17 @@
 										</td>
 								</c:forEach>
 						</table>
+						<input class="btn btn-secondary" type="submit" value="登録して終了">
+						</c:if>
+						<c:if test="${student_list.size() == 0}">
+							<div>生徒が存在しませんでした。</div>
+						</c:if>
 					</c:if>
-					<input class="btn btn-secondary" type="submit" value="登録して終了">
+					<input type="hidden" name="f1" value="${f1}">
+					<input type="hidden" name="f2" value="${f2}">
+					<input type="hidden" name="f3" value="${f3}">
+					<input type="hidden" name="f4" value="${f4}">
 					</form>
-				</c:when>
-				<c:when test="${empty student_list }">
-					<div>学生情報が存在しませんでした。</div>
 				</c:when>
 			</c:choose>
 		</section>

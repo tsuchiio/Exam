@@ -71,30 +71,32 @@ public class StudentCreateExecuteAction extends Action {
 		}else{
 		try{
 			Student student = new Student();
-			student.setNo(studentNo);
-			student.setName(studentName);
-			student.setEntYear(entYear);
-			student.setClassNum(classNum);
-			student.setAttend(true);
-			student.setSchool(teacher.getSchool());
-			error = sDao.save(student,"create");
+			student = sDao.get(studentNo);
+			if (student != null){
+				errors.put("f2", "学生番号が重複しています");
+				req.setAttribute("errors", errors);
+				req.setAttribute("ent_year", entYearStr);
+				req.setAttribute("no", studentNo);
+				req.setAttribute("name", studentName);
+				req.setAttribute("class_num", classNum);
+				req.setAttribute("class_num_set", list);
+				req.setAttribute("ent_year_set", entYearSet);
+				req.getRequestDispatcher("student_create.jsp").forward(req, res);
+				return;
+			}else {
+				Student newStudent = new Student();
+				newStudent.setNo(studentNo);
+				newStudent.setName(studentName);
+				newStudent.setEntYear(entYear);
+				newStudent.setClassNum(classNum);
+				newStudent.setAttend(true);
+				newStudent.setSchool(teacher.getSchool());
+				error = sDao.save(student);
+			}
 		}catch (Exception e) {
 			throw e;
 		}
-		if (!error){
-			errors.put("f2", "学生番号が重複しています");
-			req.setAttribute("errors", errors);
-			req.setAttribute("ent_year", entYearStr);
-			req.setAttribute("no", studentNo);
-			req.setAttribute("name", studentName);
-			req.setAttribute("class_num", classNum);
-			req.setAttribute("class_num_set", list);
-			req.setAttribute("ent_year_set", entYearSet);
-			req.getRequestDispatcher("student_create.jsp").forward(req, res);
-			return;
-		}else{
 		req.getRequestDispatcher("student_create_done.jsp").forward(req, res);
 		}
-	}
 	}
 }

@@ -59,12 +59,17 @@ public class TestRegistAction extends Action{
 			req.setAttribute("student_list", list);
 			if(list == null){
 				List<Student> list2 = new ArrayList<Student>();
-				list2 = sDao.filter(teacher.getSchool(),entYear,true);
+				list2 = sDao.filter(teacher.getSchool(),entYear,classNum,true);
 				req.setAttribute("req", "create");
 				req.setAttribute("student_list", list2);
+//				req.getRequestDispatcher("test_regist_add.jsp").forward(req, res);;
+//				return;
+			}else{
+//				req.getRequestDispatcher("test_regist_update.jsp").forward(req, res);
+//				return;
 			}
 
-		} else{
+		}else{
 			req.setAttribute("error", "入学年度とクラスと科目と回数を選択してください。");
 		}
 		

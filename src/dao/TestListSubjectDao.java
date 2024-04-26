@@ -15,21 +15,13 @@ import bean.TestListStudent;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao{
-	private String baseSql = "SELECT st.ent_year,"
-				+ "st.class_num,"
-				+ "st.no as student_no,"
-				+ "st.name as student_name,"
-				+ "s.name as subject_name,"
-				+ "s.cd as subject_cd,"
-				+"t.no as num,"
-				+"t.point "
-				+"FROM test t "
-				+"JOIN subject s ON t.SUBJECT_CD = s.CD AND t.SCHOOL_CD = s.SCHOOL_CD "
-				+"JOIN student st ON t.SCHOOL_CD = st.SCHOOL_CD AND t.CLASS_NUM = st.CLASS_NUM "
-				+"WHERE st.ENT_YEAR = ? "
-				+"AND st.CLASS_NUM = ? "
-				+"AND s.CD = ? "
-				+"ORDER BY st.NAME, t.NO";
+	private String baseSql = ""
+			+ "select st.ent_year, t.class_num, t.student_no, st.name, t.no, t.point "
+			+ "from test as t "
+			+ "join student as st on t.student_no = st.no and t.class_num = st.class_num "
+			+ "where st.ent_year = ? "
+			+ "and t.class_num = ? "
+			+ "and t.subject_cd = ?";
 
 	private List<TestListSubject> postfilter(ResultSet rSet)throws Exception{
 		List<TestListSubject> list = new ArrayList<>();
@@ -39,10 +31,10 @@ public class TestListSubjectDao extends Dao{
 				Map<Integer, Integer> point = new HashMap<>();
 				tSubject.setEntYear(rSet.getInt("ent_year"));
 				tSubject.setStudentNo(rSet.getString("student_no"));
-				tSubject.setStudentName(rSet.getString("student_name"));
+				tSubject.setStudentName(rSet.getString("name"));
 				tSubject.setClassNum(rSet.getString("class_num"));
 				tSubject.setPoints(point);
-				tSubject.putPoit(rSet.getInt("num"), rSet.getInt("point"));
+				tSubject.putPoit(rSet.getInt("no"), rSet.getInt("point"));
 				list.add(tSubject);
 			}
 		}catch (Exception e) {

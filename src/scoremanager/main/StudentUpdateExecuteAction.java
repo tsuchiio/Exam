@@ -32,7 +32,7 @@ public class StudentUpdateExecuteAction extends Action {
 		student.setEntYear(entYear);
 		student.setClassNum(classNum);
 		student.setAttend(isAttend);
-		sDao.save(student,"update");
+		sDao.save(student);
 
 		req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
 

@@ -11,14 +11,11 @@ import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao{
-	private String baseSql = "SELECT s.name as subject_name, "
-			+ "s.cd as subject_cd, "
-			+"t.no as num,"
-			+"t.point "
-			+"FROM test t "
-			+"JOIN subject s ON t.SUBJECT_CD = s.CD AND t.SCHOOL_CD = s.SCHOOL_CD "
-			+"JOIN student st ON t.SCHOOL_CD = st.SCHOOL_CD AND t.CLASS_NUM = st.CLASS_NUM "
-			+"WHERE st.no = ? ";
+	private String baseSql = ""
+			+ "select s.name as subject_name, t.subject_cd,t.no, t.point " 
+			+ "from test as t "
+			+ "join subject as s on t.subject_cd = s.cd "
+			+ "where t.student_no = ?";
 
 	private List<TestListStudent> postfilter(ResultSet rSet)throws Exception{
 		List<TestListStudent> list = new ArrayList<>();
@@ -27,7 +24,7 @@ public class TestListStudentDao extends Dao{
 				TestListStudent tStudent = new TestListStudent();
 				tStudent.setSubjectName(rSet.getString("subject_name"));
 				tStudent.setSubjectCd(rSet.getString("subject_cd"));
-				tStudent.setNum(rSet.getInt("num"));
+				tStudent.setNum(rSet.getInt("no"));
 				tStudent.setPoint(rSet.getInt("point"));
 				list.add(tStudent);
 			}

@@ -109,21 +109,22 @@ public class TestDao extends Dao{
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 		String condition = ""
-				+ "SELECT st.ent_year,"
-				+ "st.class_num as classNum,"
-				+ "st.NO AS STUDENT_NO,"
-				+ "st.NAME AS STUDENT_NAME,"
-				+ "t.subject_cd,"
+				+ "select t.student_no,"
+				+ "st.ent_year, "
+				+ "st.name as student_name, "
+				+ "s.cd,t.subject_cd,"
 				+ "s.name as subject_name, "
-				+ "t.NO AS NUM,"
-				+ "t.POINT "
-				+ "FROM test t "
-				+ "JOIN subject s ON t.SUBJECT_CD = s.CD AND t.SCHOOL_CD = s.SCHOOL_CD "
-				+ "JOIN student st ON t.SCHOOL_CD = st.SCHOOL_CD AND t.CLASS_NUM = st.CLASS_NUM and t.student_no = st.no "
-				+ "WHERE st.ENT_YEAR = ? "
-				+ "AND st.CLASS_NUM = ? "
-				+ "AND s.CD = ? "
-				+ "ORDER BY st.NAME, t.NO";
+				+ "st.name as student_name, "
+				+ "t.no as num, "
+				+ "t.point,"
+				+ "t.class_num,"
+				+ "t.school_cd "
+				+ "from test as t "
+				+ "join subject as s on t.subject_cd = s.cd and t.school_cd = s.school_cd "
+				+ "join student as st on t.student_no = st.no "
+				+ "where st.ent_year = ? "
+				+ "and t.class_num = ? "
+				+ "and subject_cd = ? ";
 		String order = "";
 
 		try {
@@ -163,28 +164,53 @@ public class TestDao extends Dao{
 	public boolean save(List<Test> list) throws Exception{
 		// コネクションを確立
 		Connection connection = getConnection();
-		// プリペアードステートメント
-		PreparedStatement statement = null;
-		// 実行件数
-		int count = 0;
-
-		try {
-			
-		}catch (Exception e){
-			
-			return false;
-		} 
 		
-
-
-		if (count > 0) {
-			//実行件数が1件以上ある場合
+		for (Test test:list){
+			save(test,connection);
+		}
+		
+		return true;
+	}
+	
+	private boolean save(Test test, Connection connection) throws Exception {
+		PreparedStatement statement = null;
+		int count = 0;
+		try{
+			statement = connection.prepareStatement(
+					"merge into test key(student_no,subject_cd,school_cd,no)values(?,?,?,?,?,?)");
+			statement.setString(1, test.getStudent().getNo());
+			statement.setString(2, test.getSubject().getCd());
+			statement.setString(3, test.getSchool().getCd());
+			statement.setInt(4, test.getNo());
+			statement.setInt(5, test.getPoint());
+			statement.setString(6, test.getClassNum());
+			count = statement.executeUpdate();
+		}catch (Exception e) {
+			throw e;
+		}finally {
+			// プリペアードステートメントを閉じる
+			if (statement !=null) {
+				try{
+					statement.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+			// コネクションを閉じる
+			if (connection != null){
+				try{
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		
+		if(count > 0){
 			return true;
-		} else {
-			// 実行件数が0件の場合
+		}else{
 			return false;
 		}
 	}
-
 
 }

@@ -109,15 +109,15 @@ public class StudentDao extends Dao{
 		// リザルトセット
 		ResultSet rSet = null;
 		// SQL文の条件
-		String condition = "and ent_year=? and class_num=?";
+		String condition = "and ent_year=? and class_num=? ";
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc ";
 
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		// 在学フラグがtrueの場合
 		if (isAttend){
-			conditionIsAttend = "and is_attend=true";
+			conditionIsAttend = " and is_attend=true ";
 		}
 
 		try {
@@ -166,14 +166,14 @@ public class StudentDao extends Dao{
 		// リザルトセット
 		ResultSet rSet = null;
 		// SQL文の条件
-		String condition = "and ent_year=? ";
+		String condition = " and ent_year=? ";
 		// SQL文のソート
 		String order = " order by no asc ";
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		// 在学フラグがtrueの場合
 		if (isAttend){
-			conditionIsAttend = "and is_attend=true ";
+			conditionIsAttend = " and is_attend=true ";
 		}
 
 		try {
@@ -262,7 +262,7 @@ public class StudentDao extends Dao{
 				return list;
 			}
 
-	public boolean save(Student student,String actionType) throws Exception{
+	public boolean save(Student student) throws Exception{
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
@@ -271,26 +271,13 @@ public class StudentDao extends Dao{
 		int count = 0;
 
 		try {
-			if (actionType.equals("update")){
-					statement = connection.prepareStatement(
-						"update student set name=?,ent_year=?,class_num=?,is_attend=? where no=?");
-					statement.setString(1, student.getName());
-					statement.setInt(2, student.getEntYear());
-					statement.setString(3, student.getClassNum());
-					statement.setBoolean(4, student.isAttend());
-					statement.setString(5, student.getNo());
-			} else {
-				statement = connection.prepareStatement(
-						"insert into student(no,name,ent_year,class_num,is_attend,school_cd) values(?,?,?,?,?,?)");
-				// プリペアードステートメントに値をバインド
-				statement.setString(1, student.getNo());
-				statement.setString(2, student.getName());
-				statement.setInt(3, student.getEntYear());
-				statement.setString(4, student.getClassNum());
-				statement.setBoolean(5, student.isAttend());
-				statement.setString(6, student.getSchool().getCd());
-				count = statement.executeUpdate();
-			}
+			statement = connection.prepareStatement(
+					"merge into student key(no) values(?,?,?,?,?)");
+			statement.setString(1, student.getName());
+			statement.setInt(2, student.getEntYear());
+			statement.setString(3, student.getClassNum());
+			statement.setBoolean(4, student.isAttend());
+			statement.setString(5, student.getNo());
 			// プリペアードステートメントを実行
 			count = statement.executeUpdate();
 		}catch (Exception e){

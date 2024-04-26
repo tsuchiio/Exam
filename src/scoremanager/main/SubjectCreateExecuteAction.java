@@ -22,7 +22,6 @@ public class SubjectCreateExecuteAction extends Action {
 		String name = "";
 		SubjectDao sDao = new SubjectDao();
 		Map<String, String> errors = new HashMap<>();
-		boolean error = true;
 
 		cd = req.getParameter("cd");
 		name = req.getParameter("name");
@@ -40,20 +39,25 @@ public class SubjectCreateExecuteAction extends Action {
 			subject.setCd(cd);
 			subject.setName(name);
 			subject.setSchool(teacher.getSchool());
-			error = sDao.save(subject,"create");
+			Subject subject2 = new Subject();
+			subject2 = sDao.get(cd, teacher.getSchool());
+			if(subject2 != null){
+				errors.put("f2", "科目コードが重複しています。");
+				req.setAttribute("errors", errors);
+				req.setAttribute("cd", cd);
+				req.setAttribute("name", name);
+				req.getRequestDispatcher("subject_create.jsp").forward(req, res);
+				return;
+			}
+			
+			sDao.save(subject);
+			
 		}catch (Exception e) {
 			throw e;
 		}
-		if (!error){
-			errors.put("f2", "科目コードが重複しています。");
-			req.setAttribute("errors", errors);
-			req.setAttribute("cd", cd);
-			req.setAttribute("name", name);
-			req.getRequestDispatcher("subject_create.jsp").forward(req, res);
-			return;
-		}else{
 		req.getRequestDispatcher("subject_create_done.jsp").forward(req, res);
 		}
 	}
-	}
 }
+
+
