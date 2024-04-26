@@ -272,12 +272,13 @@ public class StudentDao extends Dao{
 
 		try {
 			statement = connection.prepareStatement(
-					"merge into student key(no) values(?,?,?,?,?)");
-			statement.setString(1, student.getName());
-			statement.setInt(2, student.getEntYear());
-			statement.setString(3, student.getClassNum());
-			statement.setBoolean(4, student.isAttend());
-			statement.setString(5, student.getNo());
+					"merge into student key(no) values(?,?,?,?,?,?)");
+			statement.setString(1, student.getNo());
+			statement.setString(2, student.getName());
+			statement.setInt(3, student.getEntYear());
+			statement.setString(4, student.getClassNum());
+			statement.setBoolean(5, student.isAttend());
+			statement.setString(6, student.getSchool().getName());
 			// プリペアードステートメントを実行
 			count = statement.executeUpdate();
 		}catch (Exception e){
