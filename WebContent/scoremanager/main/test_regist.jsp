@@ -13,9 +13,17 @@
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 			<form method="get" action="TestRegist.action">
-				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-					<div class="col-4">
-						<label class="form-lavel" for="student-f1-select">入学年度</label>
+				<div class="row border mx-3 mb-1 py-2 align-items-center rounded" id="filter">
+				<div class="col-10">
+				<table class="table table-borderless table-sm">
+					<tr class="">
+						<th class="col-2 fw-normal">入学年度</th>
+						<th class="col-2 fw-normal">クラス</th>
+						<th class="col-4 fw-normal">科目</th>
+						<th class="col-2 fw-normal">回数</th>
+					</tr>
+					<tr>
+					<td class="">
 						<select class="form-select" id="student-f1-select" name="f1">
 							<option value="0">--------</option>
 							<c:forEach var="year" items="${ent_year_set }">
@@ -23,9 +31,8 @@
 								<option value="${year}" <c:if test="${year == f1}"> selected </c:if>>${year}</option>
 							</c:forEach>
 						</select>
-					</div>
-					<div class="col-4">
-						<label class="form-lavel" for="student-f2-select">クラス</label>
+					</td>
+					<td class="">
 						<select class="form-select" id="student-f2-select" name="f2">
 							<option value="0">--------</option>
 							<c:forEach var="num" items="${class_num_set}">
@@ -33,9 +40,8 @@
 								<option value="${num}" <c:if test="${num == f2}"> selected</c:if>>${num}</option>
 							</c:forEach>
 						</select>
-					</div>
-					<div class="col-4">
-						<label class="form-check-label" for="student-f3-check">科目</label>
+					</td>
+					<td class="">
 						<select class="form-select" id="student-f3-select" name="f3">
 							<option value="0">--------</option>
 							<c:forEach var="subject" items="${subjects}">
@@ -43,9 +49,8 @@
 								<option value="${subject.cd}" <c:if test="${subject.cd == f3}" > selected</c:if>>${subject.name}</option>
 							</c:forEach>
 						</select>
-					</div>
-					<div class="col-4">
-						<label class="form-check-label" for="student-f4-check">回数
+					</td>
+					<td class="">
 						<select class="form-select" id="student-f4-select" name="f4">
 							<option value="0">--------</option>
 							<c:forEach var="num" items="${num_set}">
@@ -53,7 +58,9 @@
 								<option value="${num}" <c:if test="${num == f4}">selected</c:if>>${num}</option>
 							</c:forEach>
 						</select>
-						</label>
+					</td>
+					</tr>
+					</table>
 					</div>
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">検索</button>
@@ -61,79 +68,6 @@
 					<div class="mt-2 text-warning">${error}</div>
 				</div>
 			</form>
-			<c:choose>
-				<c:when test="${req != null}">
-					<form method="get" action="TestRegistExecute.action">
-					<c:if test="${req eq 'update'}">
-						<c:if test="${not empty student_list}">
-						<div>科目:${subject_name}（${f4}回）</div>
-						<table class="table table-hover">
-							<tr>
-								<th>入学年度</th>
-								<th>クラス</th>
-								<th>学生番号</th>
-								<th>氏名</th>
-								<th>点数</th>
-							</tr>
-								<c:forEach var="student" items="${student_list}">
-									<tr>	
-										<td>${f1}</td>
-										<td>${f2}</td>
-										<td>${student.getStudent().getNo()}</td>
-										<td>${student.getStudent().getName()}</td>
-										<td>
-											<input name="point_${student.getStudent().getNo()}" type="number" 
-											value="${student.getPoint()}"
-											oninput="validateInput(this)">
-											<p class="mt-2 text-warning"></p>
-										</td>
-								</c:forEach>
-						</table>
-						<input class="btn btn-secondary" type="submit" value="登録して終了">
-						</c:if>
-						<c:if test="${empty student_list}">
-							<div>学生情報が存在しませんでした。</div>
-						</c:if>
-					</c:if>
-					<c:if test="${req eq 'create' }">
-					<c:if test="${not empty student_list}">
-					<div>科目:${subject_name}（${f4}回）</div>
-						<table class="table table-hover">
-						<tr>
-								<th>入学年度</th>
-								<th>クラス</th>
-								<th>学生番号</th>
-								<th>氏名</th>
-								<th>点数</th>
-							</tr>
-								<c:forEach var="student" items="${student_list}">
-									<tr>	
-										<td>${f1}</td>
-										<td>${f2}</td>
-										<td>${student.getNo()}</td>
-										<td>${student.getName()}</td>
-										<td>
-											<label for="point"></label>
-											<input name="point_${student.getNo()}" 
-											type="number" value="0" id="point" min="0" max="100" style="width:300px;"
-											oninput="validateInput(this)">
-											<p class="mt-2 text-warning" id="point" ></p>
-										</td>
-								</c:forEach>
-						</table>
-						<input class="btn btn-secondary" type="submit" value="登録して終了">
-						</c:if>
-						<c:if test="${student_list.size() == 0}">
-							<div>生徒が存在しませんでした。</div>
-						</c:if>
-					</c:if>
-					<input type="hidden" name="f1" value="${f1}">
-					<input type="hidden" name="f2" value="${f2}">
-					<input type="hidden" name="f3" value="${f3}">
-					<input type="hidden" name="f4" value="${f4}">
-					</form>
-				</c:when>
-			</c:choose>
 		</section>
 		<script>
 		function validateInput(input) {

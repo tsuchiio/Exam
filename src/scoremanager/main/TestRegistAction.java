@@ -62,11 +62,11 @@ public class TestRegistAction extends Action{
 				list2 = sDao.filter(teacher.getSchool(),entYear,classNum,true);
 				req.setAttribute("req", "create");
 				req.setAttribute("student_list", list2);
-//				req.getRequestDispatcher("test_regist_add.jsp").forward(req, res);;
-//				return;
+				req.getRequestDispatcher("test_regist_add.jsp").forward(req, res);;
+				return;
 			}else{
-//				req.getRequestDispatcher("test_regist_update.jsp").forward(req, res);
-//				return;
+				req.getRequestDispatcher("test_regist_update.jsp").forward(req, res);
+				return;
 			}
 
 		}else{

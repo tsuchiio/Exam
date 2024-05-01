@@ -13,6 +13,7 @@
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報変更</h2>
 			<form method="get" action="StudentUpdateExecute.action">
+			<div class="mx-3 my-4">
 				<div class="mb-3">
 					<label class="form-text-lavel" for="entYear">入学年度</label>
 					<input class="form-control-plaintext" type="text" name="no" id="entYear"
@@ -45,6 +46,7 @@
 					<input class="btn btn-primary" type="submit" id="filter-button" value="変更">
 				</div>
 				<div><a href="StudentList.action">戻る</a></div>
+			</div>
 			</form>
 		</section>
 	</c:param>

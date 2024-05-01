@@ -12,10 +12,12 @@
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
-			<p class="bg-success px-4 text-center">登録が完了しました</p>
-			<div class="row">
-				<a href="TestRegist.action" class="col">戻る</a>
-				<a href="TestList.action" class="col">成績参照</a>
+			<label class="w-100 mb-5">
+				<p class="bg-success px-4 text-center bg-opacity-50 mb-5">登録が完了しました</p>
+			</label>
+			<div class="row mt-5">
+				<a href="TestRegist.action" class="col-2">戻る</a>
+				<a href="TestList.action" class="col-2">成績参照</a>
 			</div>
 		</section>
 	</c:param>
