@@ -27,6 +27,7 @@ public class TestRegistAction extends Action{
 		if (req.getParameter("f1") != null && req.getParameter("f2") != null 
 				&& req.getParameter("f3") != null && req.getParameter("f4") != null) {
 			setRequestData(req, res);
+			return;
 		}
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}
@@ -57,16 +58,24 @@ public class TestRegistAction extends Action{
 			req.setAttribute("subject_name", subject.getName());
 			req.setAttribute("req", "update");
 			req.setAttribute("student_list", list);
+			List<Student> list2 = new ArrayList<Student>();
+			list2 = sDao.filter(teacher.getSchool(),entYear,classNum,true);
 			if(list == null){
-				List<Student> list2 = new ArrayList<Student>();
-				list2 = sDao.filter(teacher.getSchool(),entYear,classNum,true);
-				req.setAttribute("req", "create");
 				req.setAttribute("student_list", list2);
-				req.getRequestDispatcher("test_regist_add.jsp").forward(req, res);;
+				req.getRequestDispatcher("test_regist_create.jsp").forward(req, res);;
 				return;
 			}else{
+				if (list.size() < list2.size()) {
+					for(Test t : list){
+						req.setAttribute("point_" + t.getStudent().getNo(),t.getPoint());
+					}
+					req.setAttribute("student_list", list2);
+					req.getRequestDispatcher("test_regist_create.jsp").forward(req, res);
+					return;
+				}else{
 				req.getRequestDispatcher("test_regist_update.jsp").forward(req, res);
 				return;
+				}
 			}
 
 		}else{

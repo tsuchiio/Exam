@@ -168,7 +168,7 @@ public class TestDao extends Dao{
 		for (Test test:list){
 			save(test,connection);
 		}
-		
+		connection.close();
 		return true;
 	}
 	
@@ -187,25 +187,9 @@ public class TestDao extends Dao{
 			count = statement.executeUpdate();
 		}catch (Exception e) {
 			throw e;
-		}finally {
-			// プリペアードステートメントを閉じる
-			if (statement !=null) {
-				try{
-					statement.close();
-				}catch (SQLException sqle){
-					throw sqle;
-				}
-			}
-			// コネクションを閉じる
-			if (connection != null){
-				try{
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
 		}
 		
+		statement.close();
 		if(count > 0){
 			return true;
 		}else{
