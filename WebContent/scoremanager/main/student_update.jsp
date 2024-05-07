@@ -16,7 +16,7 @@
 			<div class="mx-3 my-4">
 				<div class="mb-3">
 					<label class="form-text-lavel" for="entYear">入学年度</label>
-					<input class="form-control-plaintext" type="text" name="no" id="entYear"
+					<input class="form-control-plaintext" type="text" name="ent_year" id="entYear"
 						value="${student.getEntYear()}" readonly />
 				</div>
 				<div class="mb-3">
@@ -42,8 +42,16 @@
 					<label class="form-check-label" for="check">在学中</label>
 					<input class="form-check-input" id="check" type="checkbox" name="is_attend" value="true" <c:if test="${student.isAttend()}">checked</c:if>>
 				</div>
-				<div class="mb-3">
-					<input class="btn btn-primary" type="submit" id="filter-button" value="変更">
+				<div class="mb-3 container">
+					<div class="row">
+						<input class="col btn btn-primary" type="submit" id="filter-button" value="変更" style="max-width:60px">
+
+					<div class="col d-flex justify-content-end">
+						<a href="StudentDelete.action?no=${student.getNo()}" class="btn btn-danger" role="button" style="max-width:60px">
+							削除
+						</a>
+					</div>
+					</div>
 				</div>
 				<div><a href="StudentList.action">戻る</a></div>
 			</div>
