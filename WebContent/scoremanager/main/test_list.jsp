@@ -60,6 +60,7 @@
 							</div>
 							</div>
 							<input type="hidden" name="f" value="sj">
+							<div class="text-warning">${subjectError}</div>
 						</form>
 					</div>
 				</div>
@@ -85,7 +86,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="mt2 text-warning">${error}</div>
 			<label>
 				<p class="text-info">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
 			</label>
