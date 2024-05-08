@@ -73,7 +73,7 @@
 					<form method="get" action="TestRegistExecute.action">
 						<c:if test="${not empty student_list}">
 						<div>科目:${subject_name}（${f4}回）</div>
-						<table class="table table-hover">
+						<table class="table">
 							<tr>
 								<th class="col-2">入学年度</th>
 								<th class="col-1">クラス</th>

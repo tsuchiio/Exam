@@ -124,8 +124,9 @@ public class TestDao extends Dao{
 				+ "join student as st on t.student_no = st.no "
 				+ "where st.ent_year = ? "
 				+ "and t.class_num = ? "
-				+ "and subject_cd = ? ";
-		String order = "";
+				+ "and subject_cd = ? "
+				+ "and t.no = ? ";
+		String order = " order by st.no ";
 
 		try {
 			// プリペアードステートメントにSQL文をセット
@@ -133,6 +134,7 @@ public class TestDao extends Dao{
 			statement.setInt(1, entYear);
 			statement.setString(2, classNum);
 			statement.setString(3, subject.getCd());
+			statement.setInt(4, num);
 			rSet = statement.executeQuery();
 			list = postFilter(rSet, school);
 			if(list.isEmpty()){
