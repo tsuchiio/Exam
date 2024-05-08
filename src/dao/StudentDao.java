@@ -311,21 +311,31 @@ public class StudentDao extends Dao{
 		}
 	}
 	
-	public boolean delete(String no)throws Exception{
+	public boolean delete(String no,String school_cd)throws Exception{
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		int count=0;
 		try{
 			statement = connection.prepareStatement(
-					"delete from student where no = ?;delete from test where student_no=?");
+					"delete from student where no = ? and school_cd = ?");
 			statement.setString(1, no);
-			statement.setString(2, no);
-			count = statement.executeUpdate();
+			statement.setString(2, school_cd);
+			count += statement.executeUpdate();
+			
+			statement = connection.prepareStatement(
+					"delete from test where student_no = ? and school_cd = ?");
+			statement.setString(1, no);
+			statement.setString(2, school_cd);
+			count += statement.executeUpdate();
+			
+			connection.commit();
+			statement.close();
 		}catch (Exception e) {
 			throw e;
 		} finally {
+			connection.setAutoCommit(true);
 			connection.close();
-			statement.close();
+			
 		}
 		
 		if(count>0){
