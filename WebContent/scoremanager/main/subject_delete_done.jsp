@@ -15,7 +15,7 @@
 			<label class="w-100 mb-5">
 				<p class="bg-success px-4 text-center bg-opacity-50 mb-5">削除が完了しました</p>
 			</label>
-			<div class="row mt-5">
+			<div class="mx-3 my-4">
 				<a href="SubjectList.action">科目一覧</a>
 			</div>
 		</section>

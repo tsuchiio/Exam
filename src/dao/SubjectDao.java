@@ -59,7 +59,7 @@ public class SubjectDao extends Dao{
 		return subject;
 	}
 
-	public List<Subject> filter(School school) throws Exception{
+	public List<Subject> filter(School school,boolean filter) throws Exception{
 		List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
@@ -67,8 +67,9 @@ public class SubjectDao extends Dao{
 
 		try {
 			statement = connection.prepareStatement(
-			"select * from subject where school_cd=? and is_true = true");
+			"select * from subject where school_cd=? and is_true = ?");
 			statement.setString(1, school.getCd());
+			statement.setBoolean(2, filter);
 			rSet = statement.executeQuery();
 			while(rSet.next()){
 				Subject subject = new Subject();
@@ -99,6 +100,7 @@ public class SubjectDao extends Dao{
 		return list;
 	}
 
+	
 	public boolean save(Subject subject) throws Exception{
 		// コネクションを確立
 		Connection connection = getConnection();
@@ -189,5 +191,23 @@ public class SubjectDao extends Dao{
 			// 実行件数が0件の場合
 			return false;
 		}
+	}
+	
+	public boolean change(String cd,boolean back) throws Exception{
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		try{
+			statement = connection.prepareStatement(
+					"update subject set is_true = true where cd = ?");
+			statement.setString(1, cd);
+			statement.executeUpdate();
+		}catch (Exception e) {
+			throw e;
+		}finally {
+			statement.close();
+			connection.close();
+		}
+		
+		return true;
 	}
 }

@@ -23,6 +23,11 @@ public class LoginAction extends Action {
 		//レスポンス値をセット 6
 		//なし
 		//JSPへフォワード 7
+		String signup = null;
+		signup = req.getParameter("signup");
+		if(signup != null){
+			req.setAttribute("signup", true);
+		}
 		req.getRequestDispatcher("login.jsp").forward(req, res);
 	}
 }

@@ -43,7 +43,7 @@ public class Util {
 
 	public void setSubjects(HttpServletRequest req) throws Exception{
 		SubjectDao sDao = new SubjectDao();
-		List<Subject> list = sDao.filter(getUser(req).getSchool());
+		List<Subject> list = sDao.filter(getUser(req).getSchool(),true);
 		req.setAttribute("subjects", list);
 		return;
 	}

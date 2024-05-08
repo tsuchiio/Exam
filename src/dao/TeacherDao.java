@@ -91,4 +91,44 @@ public class TeacherDao extends Dao {
 		}
 		return teacher;
 	}
+	
+	public boolean sigup(String id,String password,String name,String school_cd)throws Exception{
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		int count=0;
+		try{
+			statement = connection.prepareStatement(
+					"insert into teacher(id,password,name,school_cd)values(?,?,?,?)");
+			statement.setString(1, id);
+			statement.setString(2, password);
+			statement.setString(3, name);
+			statement.setString(4, school_cd);
+			count = statement.executeUpdate();
+		}catch (Exception e) {
+			throw e;
+		}finally {
+			// プリペアードステートメントを閉じる
+			if (statement !=null) {
+				try{
+					statement.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+			// コネクションを閉じる
+			if (connection != null){
+				try{
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

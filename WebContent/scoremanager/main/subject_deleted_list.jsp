@@ -12,31 +12,32 @@
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目</h2>
-			<div class="my-2 text-end px-4">
-					<a href="SubjectCreate.action">新規登録</a>
+			<div class="my-2 px-4">
+					<a href="SubjectList.action" class="">戻る</a>
 			</div>
+			<c:choose>
+				<c:when test="${deleted_list.size()>0 }">
 					<table class="table">
 						<tr>
-							<th>科目コード</th>
-							<th>科目名</th>
-							<th></th>
+							<th class="col-4">科目コード</th>
+							<th class="col-4">科目名</th>
 							<th></th>
 						</tr>
-					<c:choose>
-						<c:when test="${subjects.size()>0 }">
-						<c:forEach var="subject" items="${subjects}">
+						<c:forEach var="subject" items="${deleted_list}">
 							<tr>
 								<td>${subject.cd}</td>
 								<td>${subject.name}</td>
-								<td><a href="SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
-								<td><a href="SubjectDelete.action?cd=${subject.cd}">削除</a></td>
+								<td><a href="SubjectDeletedList.action?cd=${subject.cd}">戻す</a></td>
 						</c:forEach>
-						</c:when>
-						</c:choose>
 					</table>
-			<div class="my-2 text-end px-4">
-					<a href="SubjectDeletedList.action" class="link-danger">※削除済み教科一覧はこちら</a>
-			</div>
+				</c:when>
+					<c:otherwise>
+						<div class="">
+							削除済み教科が存在しません。
+						</div>
+					</c:otherwise>
+				</c:choose>
+					
 		</section>
 	</c:param>
 </c:import>

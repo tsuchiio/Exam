@@ -35,7 +35,7 @@ public class TestListAction extends Action{
 		List<String> class_num_list = null;
 		class_num_list = cDao.filter(teacher.getSchool());
 		List<Subject> subjects = null;
-		subjects = subjectDao.filter(teacher.getSchool());
+		subjects = subjectDao.filter(teacher.getSchool(),true);
 		List<Integer> entYearSet = new ArrayList<>();
 		for (int i = year - 10; i < year + 11; i++){
 			entYearSet.add(i);
@@ -67,7 +67,7 @@ public class TestListAction extends Action{
 		req.setAttribute("ent_year", entYear);
 		req.setAttribute("classNum", classNum);
 		req.setAttribute("cd", subjectCd);
-		if (entYear != 0 && classNum != null && subjectCd != null){
+		if (entYear != 0 && !classNum.equals("0") && !subjectCd.equals("0")){
 			List<TestListSubject> list = new ArrayList<>();
 			TestListSubjectDao tDao = new TestListSubjectDao();
 			Subject subject = new Subject();
@@ -78,6 +78,7 @@ public class TestListAction extends Action{
 			req.setAttribute("results", list);
 		}else{
 			req.setAttribute("subjectError", "入学年度とクラスと科目を選択してください");
+			req.getRequestDispatcher("test_list.jsp").forward(req, res);
 			return;
 		}
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);

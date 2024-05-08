@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 public class StudentDao extends Dao{
 	private String baseSql = "select * from student where school_cd = ? ";
 
@@ -309,6 +307,30 @@ public class StudentDao extends Dao{
 			return true;
 		} else {
 			// 実行件数が0件の場合
+			return false;
+		}
+	}
+	
+	public boolean delete(String no)throws Exception{
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		int count=0;
+		try{
+			statement = connection.prepareStatement(
+					"delete from student where no = ?;delete from test where student_no=?");
+			statement.setString(1, no);
+			statement.setString(2, no);
+			count = statement.executeUpdate();
+		}catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+			statement.close();
+		}
+		
+		if(count>0){
+			return true;
+		}else{
 			return false;
 		}
 	}
