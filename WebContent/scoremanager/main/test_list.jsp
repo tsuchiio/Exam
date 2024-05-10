@@ -74,7 +74,7 @@
 								</div>
 								<div class="col-sm-4">
 									<div>学生番号</div>
-									<input class="form-control" type="text" value="${f4}" 
+									<input class="form-control" type="text" value="${f4}" max="10" 
 									name="f4" id="No" placeholder="学生番号を入力してください" required />
 								</div>
 								<div class="col-sm-2">
