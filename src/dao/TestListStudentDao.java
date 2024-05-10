@@ -14,8 +14,11 @@ public class TestListStudentDao extends Dao{
 	private String baseSql = ""
 			+ "select s.name as subject_name, t.subject_cd,t.no, t.point " 
 			+ "from test as t "
-			+ "join subject as s on t.subject_cd = s.cd "
-			+ "where t.student_no = ?";
+			+ "join subject as s on t.subject_cd = s.cd and t.school_cd = s.school_cd "
+			+ "where t.student_no = ? "
+			+ "and t.school_cd = ? "
+			+ "order by s.cd";
+	
 
 	private List<TestListStudent> postfilter(ResultSet rSet)throws Exception{
 		List<TestListStudent> list = new ArrayList<>();
@@ -47,6 +50,7 @@ public class TestListStudentDao extends Dao{
 			statement = connection.prepareStatement(
 					baseSql);
 			statement.setString(1, student.getNo());
+			statement.setString(2, student.getSchool().getCd());
 			rSet = statement.executeQuery();
 			list = postfilter(rSet);
 		}catch (Exception e) {
