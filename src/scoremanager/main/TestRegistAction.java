@@ -24,12 +24,12 @@ public class TestRegistAction extends Action{
 		util.setNumSet(req);
 		util.setClassNumSet(req);
 		util.setSubjects(req);
-		if (req.getParameter("f1") != null && req.getParameter("f2") != null 
-				&& req.getParameter("f3") != null && req.getParameter("f4") != null) {
-			setRequestData(req, res);
-			return;
+		if (req.getParameter("f1") == null || req.getParameter("f2") == null 
+				|| req.getParameter("f3") == null || req.getParameter("f4") == null) {
+			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 		}
-		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+		setRequestData(req, res);
+		return;
 	}
 
 	private void setRequestData(HttpServletRequest req,HttpServletResponse res) throws Exception{
@@ -80,6 +80,7 @@ public class TestRegistAction extends Action{
 
 		}else{
 			req.setAttribute("error", "入学年度とクラスと科目と回数を選択してください。");
+			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 		}
 		
 	}
