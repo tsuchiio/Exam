@@ -50,7 +50,7 @@ public class TestListStudentDao extends Dao{
 			rSet = statement.executeQuery();
 			list = postfilter(rSet);
 		}catch (Exception e) {
-			throw e;
+			return list;
 		}finally {
 			// プリペアードステートメントを閉じる
 			if (statement !=null) {

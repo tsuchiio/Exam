@@ -50,8 +50,10 @@ public class TestListAction extends Action{
 			} else if(f.equals("st")){
 				setTestListStudent(req, res);
 			}
+			req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+		}else{
+			req.getRequestDispatcher("test_list.jsp").forward(req, res);
 		}
-		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 	}
 
 	private void setTestListSubject(HttpServletRequest req,HttpServletResponse res)throws Exception{
@@ -78,11 +80,7 @@ public class TestListAction extends Action{
 			req.setAttribute("results", list);
 		}else{
 			req.setAttribute("subjectError", "入学年度とクラスと科目を選択してください");
-			req.getRequestDispatcher("test_list.jsp").forward(req, res);
-			return;
 		}
-		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
-		return;
 	}
 
 	private void setTestListStudent(HttpServletRequest req,HttpServletResponse res)throws Exception{
@@ -100,8 +98,6 @@ public class TestListAction extends Action{
 		}else{
 			return;
 		}
-		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
-		return;
 	}
 
 }

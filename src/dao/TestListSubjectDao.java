@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.sun.javafx.css.CssError.InlineStyleParsingError;
+
 import java.util.HashMap;
 import bean.School;
 import bean.Student;
@@ -21,22 +24,32 @@ public class TestListSubjectDao extends Dao{
 			+ "join student as st on t.student_no = st.no and t.class_num = st.class_num "
 			+ "where st.ent_year = ? "
 			+ "and t.class_num = ? "
-			+ "and t.subject_cd = ?";
+			+ "and t.subject_cd = ? "
+			+ "order by st.no";
 
 	private List<TestListSubject> postfilter(ResultSet rSet)throws Exception{
 		List<TestListSubject> list = new ArrayList<>();
+		String student_no = "";
+		TestListSubject tSubject = null;
 		try{
 			while(rSet.next()){
-				TestListSubject tSubject = new TestListSubject();
-				Map<Integer, Integer> point = new HashMap<>();
-				tSubject.setEntYear(rSet.getInt("ent_year"));
-				tSubject.setStudentNo(rSet.getString("student_no"));
-				tSubject.setStudentName(rSet.getString("name"));
-				tSubject.setClassNum(rSet.getString("class_num"));
-				tSubject.setPoints(point);
-				tSubject.putPoit(rSet.getInt("no"), rSet.getInt("point"));
-				list.add(tSubject);
+				if(!rSet.getString("student_no").equals(student_no)){
+					if(tSubject != null){
+						list.add(tSubject);
+					}
+					Map<Integer, Integer> map = new HashMap<>();
+					student_no = rSet.getString("student_no");
+					tSubject = new TestListSubject();
+					tSubject.setPoints(map);
+					tSubject.setEntYear(rSet.getInt("ent_year"));
+					tSubject.setStudentNo(rSet.getString("student_no"));
+					tSubject.setStudentName(rSet.getString("name"));
+					tSubject.setClassNum(rSet.getString("class_num"));
+					tSubject.putPoint(rSet.getInt("no"), rSet.getInt("point"));
+				}
+				tSubject.putPoint(rSet.getInt("no"), rSet.getInt("point"));
 			}
+			list.add(tSubject);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

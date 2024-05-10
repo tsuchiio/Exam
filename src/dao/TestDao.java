@@ -67,7 +67,7 @@ public class TestDao extends Dao{
 		return test;
 	}
 	
-	public List<Test> postFilter(ResultSet rSet,School school)throws Exception {
+	private List<Test> postFilter(ResultSet rSet,School school)throws Exception {
 		List<Test> list = new ArrayList<>();
 		try{
 			// リザルトセットを全権操作

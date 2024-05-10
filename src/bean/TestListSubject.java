@@ -48,6 +48,7 @@ public class TestListSubject implements Serializable{
 	public void setClassNum(String classNum) {
 		this.classNum = classNum;
 	}
+
 	public Map<Integer, Integer> getPoints() {
 		return points;
 	}
@@ -60,7 +61,7 @@ public class TestListSubject implements Serializable{
 		return points.get(key);
 	}
 
-	public void putPoit(int key,int value) {
+	public void putPoint(int key,int value) {
 		points.put(key, value);
 	}
 }
