@@ -49,7 +49,9 @@ public class TestListSubjectDao extends Dao{
 				}
 				tSubject.putPoint(rSet.getInt("no"), rSet.getInt("point"));
 			}
-			list.add(tSubject);
+			if(!student_no.equals("")){
+				list.add(tSubject);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
