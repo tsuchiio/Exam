@@ -90,7 +90,7 @@
 				<c:when test="${f eq 'sj'}">
 					<c:choose>
 						<c:when test="${results.size() > 0}">
-							<div>科目:${subject_name}</div>
+							<div>科目 : ${subject_name}</div>
 							<table class="table">
 								<tr>
 									<th>入学年度</th>
@@ -135,7 +135,7 @@
 					</c:choose>
 				</c:when>
 				<c:when test="${f eq 'st'}">
-					<div>氏名:${student.getName()}(${student.getNo()})</div>
+					<div>氏名 : ${student.getName()} (${student.getNo()})</div>
 					<c:choose>
 						<c:when test="${results.size() > 0}">
 							<table class="table">
