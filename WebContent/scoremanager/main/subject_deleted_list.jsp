@@ -13,7 +13,7 @@
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目</h2>
 			<div class="my-2 px-4">
-					<a href="SubjectList.action" class="">戻る</a>
+					<a href="SubjectList.action" class="link-success"> &lt;- 科目一覧に戻る</a>
 			</div>
 			<c:choose>
 				<c:when test="${deleted_list.size()>0 }">

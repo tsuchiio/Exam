@@ -66,13 +66,13 @@
 						<div class="form-floating mx-5 mt-3">
 							<input class="form-control px-5 fs-5" autocomplete="off"
 								id="id-input" maxlength="10" name="name" placeholder="10文字以内でご入力下さい"
-								style="ime-mode: disabled" type="text" value="${name}" required />
+								type="text" value="${name}" required />
 							<label>名前</label>
 						</div>
 						<div class="form-floating mx-5 mt-3">
 							<input class="form-control px-5 fs-5" autocomplete="off"
 								id="id-input" maxlength="3" name="school_cd" placeholder="3文字でご入力下さい"
-								style="ime-mode: disabled" type="text" value="${school_cd}" required />
+								type="text" value="${school_cd}" required />
 							<label>学校ID</label>
 						</div>
 					</div>

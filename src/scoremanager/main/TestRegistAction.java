@@ -27,6 +27,7 @@ public class TestRegistAction extends Action{
 		if (req.getParameter("f1") == null || req.getParameter("f2") == null 
 				|| req.getParameter("f3") == null || req.getParameter("f4") == null) {
 			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+			return;
 		}
 		setRequestData(req, res);
 		return;
@@ -35,16 +36,24 @@ public class TestRegistAction extends Action{
 	private void setRequestData(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		Util util = new Util();
 		Teacher teacher = util.getUser(req);
-		int entYear = 0;
+		String entYearStr = null;
+		String numStr = null;
 		String classNum = null;
 		String subject_cd = null;
 		int num = 0;
+		int entYear = 0;
 		Subject subject = new Subject();
 		SubjectDao subjectDao = new SubjectDao();
-		entYear = Integer.parseInt(req.getParameter("f1"));
+		entYearStr = req.getParameter("f1");
+		if(entYearStr != null){
+			entYear = Integer.parseInt(entYearStr);
+		}
 		classNum = req.getParameter("f2");
 		subject_cd = req.getParameter("f3");
-		num = Integer.parseInt(req.getParameter("f4"));
+		numStr = req.getParameter("f4");
+		if(numStr != null){
+			num = Integer.parseInt(numStr);
+		}
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", subject_cd);
@@ -63,7 +72,6 @@ public class TestRegistAction extends Action{
 			if(list == null){
 				req.setAttribute("student_list", list2);
 				req.getRequestDispatcher("test_regist_create.jsp").forward(req, res);;
-				return;
 			}else{
 				if (list.size() < list2.size()) {
 					for(Test t : list){
@@ -71,10 +79,8 @@ public class TestRegistAction extends Action{
 					}
 					req.setAttribute("student_list", list2);
 					req.getRequestDispatcher("test_regist_create.jsp").forward(req, res);
-					return;
 				}else{
 				req.getRequestDispatcher("test_regist_update.jsp").forward(req, res);
-				return;
 				}
 			}
 

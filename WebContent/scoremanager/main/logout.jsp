@@ -11,7 +11,7 @@
 
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">ログアウト</h2>
-			<p class="bg-success px-4 text-center">ログアウトしました</p>
+			<p class="bg-success px-4 bg-opacity-75 text-center">ログアウトしました</p>
 			<div class="row">
 				<a href="../Login.action" class="col">ログイン</a>
 				<%-- "../Login.action"はパスを変更してください --%>

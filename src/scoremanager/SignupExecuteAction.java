@@ -32,7 +32,7 @@ public class SignupExecuteAction extends Action {
 		school_cd = req.getParameter("school_cd");
 
 		//DBからデータ取得 3
-		teacher = teacherDao.login(id, password);//教員データ取得
+		teacher = teacherDao.get(id);//教員データ取得
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
@@ -52,22 +52,9 @@ public class SignupExecuteAction extends Action {
 			url = "signup.jsp";
 			req.getRequestDispatcher(url).forward(req, res);
 		} else {
-			if(school_cd.length()<3){
-				List<String> errors = new ArrayList<>();
-				errors.add("学校IDは3文字で入力してください");
-				// 認証失敗の場合
-				// エラーメッセージをセット
-				req.setAttribute("errors", errors);
-				req.setAttribute("id", id);
-				req.setAttribute("name",name);
-				req.setAttribute("school_cd", school_cd);
-				url = "signup.jsp";
-				req.getRequestDispatcher(url).forward(req, res);
-			}else{
 			teacherDao.sigup(id, password, name, school_cd);
 			url = "Login.action?signup=true";
 			res.sendRedirect(url);
-			}
 		}
 
 //		req.getRequestDispatcher(url).forward(req, res);
