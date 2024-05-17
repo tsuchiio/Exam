@@ -1,6 +1,7 @@
 package tool;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,14 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;
+import bean.Teacher;
+import dao.ClassNumDao;
+
 @WebServlet(urlPatterns = { "*.action" })
 public class FrontController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		try {
+			Teacher teacher = null;
+			Util util = new Util();
+			teacher = util.getUser(req);
 			// パスを取得
 			String path = req.getServletPath().substring(1);
+			System.out.println(path);
+			
+			if(teacher != null){
+				ClassNumDao cDao = new ClassNumDao();
+				List<String> list = cDao.filter(teacher.getSchool());
+				if(list.size() < 1 && path.contains("Menu")){
+					req.setAttribute("set",true);
+					req.getRequestDispatcher("classInput.jsp").forward(req, res);
+					return;
+				}
+			}
+			
+			
 			// ファイル名を取得しクラス名に変換
 			String name = path.replace(".a", "A").replace('/', '.');
 			// アクションクラスのインスタンスを返却

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import bean.Teacher;
 import dao.TeacherDao;
@@ -22,6 +21,7 @@ public class SignupExecuteAction extends Action {
 		String password = "";
 		String name = "";
 		String school_cd = "";
+		String school_name = "";
 		TeacherDao teacherDao = new TeacherDao();
 		Teacher teacher = null;
 
@@ -30,6 +30,7 @@ public class SignupExecuteAction extends Action {
 		password = req.getParameter("password");//パスワード
 		name = req.getParameter("name");
 		school_cd = req.getParameter("school_cd");
+		school_name = req.getParameter("school_name");
 
 		//DBからデータ取得 3
 		teacher = teacherDao.get(id);//教員データ取得
@@ -48,11 +49,12 @@ public class SignupExecuteAction extends Action {
 			req.setAttribute("id", id);
 			req.setAttribute("name",name);
 			req.setAttribute("school_cd", school_cd);
+			req.setAttribute("school_name", school_name);
 			//リダイレクト
 			url = "signup.jsp";
 			req.getRequestDispatcher(url).forward(req, res);
 		} else {
-			teacherDao.sigup(id, password, name, school_cd);
+			teacherDao.sigup(id, password, name, school_cd,school_name);
 			url = "Login.action?signup=true";
 			res.sendRedirect(url);
 		}

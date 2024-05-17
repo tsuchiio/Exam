@@ -92,7 +92,7 @@ public class TeacherDao extends Dao {
 		return teacher;
 	}
 	
-	public boolean sigup(String id,String password,String name,String school_cd)throws Exception{
+	public boolean sigup(String id,String password,String name,String school_cd,String school_name)throws Exception{
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		int count=0;
@@ -103,26 +103,21 @@ public class TeacherDao extends Dao {
 			statement.setString(2, password);
 			statement.setString(3, name);
 			statement.setString(4, school_cd);
-			count = statement.executeUpdate();
+			count += statement.executeUpdate();
+			
+			statement = connection.prepareStatement(
+					"insert into school(cd,name)values(?,?)");
+			statement.setString(1, school_cd);
+			statement.setString(2, school_name);
+			count += statement.executeUpdate();
+			
+			connection.commit();
+			statement.close();
 		}catch (Exception e) {
 			throw e;
 		}finally {
-			// プリペアードステートメントを閉じる
-			if (statement !=null) {
-				try{
-					statement.close();
-				}catch (SQLException sqle){
-					throw sqle;
-				}
-			}
-			// コネクションを閉じる
-			if (connection != null){
-				try{
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
+			connection.setAutoCommit(true);
+			connection.close();
 		}
 		
 		if(count>0){

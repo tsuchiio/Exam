@@ -69,12 +69,20 @@
 								type="text" value="${name}" required />
 							<label>名前</label>
 						</div>
-						<div class="form-floating mx-5 mt-3">
-							<input class="form-control px-5 fs-5" autocomplete="off"
-								id="id-input" maxlength="3" name="school_cd" placeholder="3文字でご入力下さい"
-								type="text" value="${school_cd}" required />
-							<label>学校ID</label>
-						</div>
+						<div class="d-flex mx-5 mt-3">
+								<div class="form-floating flex-grow-1 me-2">
+									<input class="form-control fs-5" autocomplete="off"
+										id="schoolCd" maxlength="3" name="school_cd"
+										placeholder="3文字でご入力下さい" type="text" value="${school_cd}"
+										required /> <label for="schoolCd">学校ID</label>
+								</div>
+								<div class="form-floating flex-grow-1">
+									<input class="form-control fs-5" autocomplete="off"
+										id="schoolName" maxlength="20" name="school_name"
+										placeholder="20文字以内でご入力下さい" type="text" value="${school_name}"
+										required /> <label for="schoolName">学校名</label>
+								</div>
+							</div>
 					</div>
 					<div class="mt-4">
 						<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="登録"/>

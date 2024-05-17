@@ -36,5 +36,32 @@ public class ClassNumDao extends Dao{
 		}
 		return list;
 	}
+	
+	public boolean save(School school,String[] classNums)throws Exception {
+		PreparedStatement statement = null;
+		String cd = school.getCd();
+		int count = 0;
+		try {
+			Connection connection = getConnection();
+			for (String class_num : classNums){
+				if(!class_num.equals("")){
+				statement = connection.prepareStatement(
+						"insert into class_num(school_cd,class_num)values(?,?)");
+				statement.setString(1, cd);
+				statement.setString(2, class_num);
+				count += statement.executeUpdate();
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			statement.close();
+		}
+		if(count == classNums.length){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }

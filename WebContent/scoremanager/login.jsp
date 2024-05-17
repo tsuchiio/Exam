@@ -28,7 +28,7 @@
 	<c:if test="${signup}">
 		<script type="text/javascript">
 			alert('登録が完了しました。');
-	</script>
+		</script>
 	</c:if>
 	</c:param>
 
