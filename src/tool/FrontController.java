@@ -24,7 +24,6 @@ public class FrontController extends HttpServlet {
 			teacher = util.getUser(req);
 			// パスを取得
 			String path = req.getServletPath().substring(1);
-			System.out.println(path);
 			
 			if(teacher != null){
 				ClassNumDao cDao = new ClassNumDao();
