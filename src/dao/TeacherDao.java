@@ -106,7 +106,7 @@ public class TeacherDao extends Dao {
 			count += statement.executeUpdate();
 			
 			statement = connection.prepareStatement(
-					"insert into school(cd,name)values(?,?)");
+					"merge into school key(cd) values(?,?)");
 			statement.setString(1, school_cd);
 			statement.setString(2, school_name);
 			count += statement.executeUpdate();
