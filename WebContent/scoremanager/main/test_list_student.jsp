@@ -135,9 +135,9 @@
 					</c:choose>
 				</c:when>
 				<c:when test="${f eq 'st'}">
-					<div>氏名 : ${student.getName()} (${student.getNo()})</div>
 					<c:choose>
 						<c:when test="${results.size() > 0}">
+						<div>氏名 : ${student.getName()} (${student.getNo()})</div>
 							<table class="table">
 								<tr>
 									<th>科目名</th>
@@ -155,7 +155,7 @@
 							</table>
 						</c:when>
 						<c:otherwise>
-							<div>成績情報が存在しませんでした</div>
+							<div>学生情報が存在しませんでした</div>
 						</c:otherwise>
 					</c:choose>
 				</c:when>

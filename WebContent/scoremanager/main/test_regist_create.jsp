@@ -89,7 +89,7 @@
 										<td>${student.getNo()}</td>
 										<td>${student.getName()}</td>
 										<td>
-											<input name="point_${student.getNo()}" type="number"
+											<input name="point_${student.getNo()}"
 												value="${empty requestScope[point] ? 0 : requestScope[point]}"
 												oninput="validateInput(this)">
 											<p class="mt-2 text-warning"></p>

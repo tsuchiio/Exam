@@ -88,7 +88,7 @@
 										<td>${student.getStudent().getNo()}</td>
 										<td>${student.getStudent().getName()}</td>
 										<td>
-											<input name="point_${student.getStudent().getNo()}" type="number"
+											<input name="point_${student.getStudent().getNo()}"
 											value="${student.getPoint()}"
 											oninput="validateInput(this)">
 											<p class="mt-2 text-warning"></p>
