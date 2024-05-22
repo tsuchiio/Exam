@@ -50,9 +50,8 @@ public class Util {
 
 	public void setNumSet(HttpServletRequest req) throws Exception{
 		List<Integer> numSet = new ArrayList<>();
-		for (int i=1;i<=10;i++){
-			numSet.add(i);
-		}
+		numSet.add(1);
+		numSet.add(2);
 		req.setAttribute("num_set", numSet);
 	}
 }
