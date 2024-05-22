@@ -21,7 +21,7 @@
 			<form id="classForm" method="get" action="ClassNumExecute.action">
 				<div class="class-container mb-3" id="classContainer1">
 					<label for="classNum1">1つ目のクラス</label>
-					<input type="text" id="classNum1" name="classNums" class="form-control" required>
+					<input type="text" id="classNum1" name="classNums" maxlength="5" class="form-control" required>
 				</div>
 				<input class="btn btn-primary" type="submit" value="保存" id="submitButton">
 			</form>
@@ -46,6 +46,7 @@
 				newInput.id = 'classNum' + classCount;
 				newInput.name = 'classNums';
 				newInput.className = 'form-control';
+				newInput.maxLength = '5';
 				newInput.required = false;
 
 				newDiv.appendChild(newLabel);
@@ -63,7 +64,6 @@
 				}
 			}
 
-			// 初期入力フィールドの設定
 			const initialInput = document.getElementById('classNum1');
 			initialInput.addEventListener('input', onInput);
         });
